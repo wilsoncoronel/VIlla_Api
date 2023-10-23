@@ -1,5 +1,7 @@
 using MagicVillaAPI;
 using MagicVillaAPI.Datos;
+using MagicVillaAPI.Repositorio;
+using MagicVillaAPI.Repositorio.IRepositorio;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddAutoMapper(typeof(MappingConfig));
+builder.Services.AddScoped<IVillaRepositorio, VillaRepositorio>();
+builder.Services.AddScoped<INumeroVillaRepositorio, NumeroVillaRepositorio>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
